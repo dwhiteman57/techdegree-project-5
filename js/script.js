@@ -5,7 +5,7 @@
 
 const galleryList = document.getElementById('gallery');
 const modalList = document.querySelector('.modal-container');
-const userUrl = 'https://randomuser.me/api/?results=12&nat=us';
+const staffUrl = 'https://randomuser.me/api/?results=12&nat=us';
 let profiles = [];
 
 
@@ -48,26 +48,29 @@ function generateHTML(data) {
 
 
 
-
 //----------------------------------------------
-// MODAL FUNCTION & EVENT LISTENER
+// EVENT LISTENER & MODAL FUNCTION
 //----------------------------------------------
 
-galleryList.addEventListener('click', (e) => {
-  const element = e.target.closest('.card');
-    if(element != null) {
-        generateModal(profiles);
-    }
-})
+/* CLICK HANDLER FUNCTION. TARGETS DIV ELEMENTS WITH THE CLASS OF 'CARD'. IT THEN ITERATES OVER THEM
+AND PLACES CLICK EVENT LISTENERS ON THEM & TRACKS THEIR INDEX VALUE. IT THEN CALLS THE generateModal
+FUNCTION ON CLICK AND PASSES IN TWO ARGUMENTS, DATA AND i.
+*/
 
-
+function clickHandler(data) {
+  let employees = document.querySelectorAll('.card');
+  employees.forEach((card, i) => {
+    card.addEventListener('click', (e) => {
+      generateModal(data, i);
+    });
+  });
+}
 
 
 function generateModal(data, i) {
-
       const body = document.querySelector('body');
       body.classList.add("modal-container");
-      body.innerHTML =
+      body.innerHTML +=
       `<div class="modal-container">
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -84,22 +87,16 @@ function generateModal(data, i) {
         </div>
       </div>
       `;
-      return(data);
 
-
-
-
-
+      //INSERT FUNCTION TO CLOSE MODAL WINDOW HERE...
 
   }
-
-
-
 
 
 //----------------------------------------------
 // FETCH DATA FUNCTION CALL
 //----------------------------------------------
 
-fetchData(userUrl)
+fetchData(staffUrl)
   .then(data => generateHTML(data.results))
+  .then(clickHandler);
