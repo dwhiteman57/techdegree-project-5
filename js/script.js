@@ -25,6 +25,15 @@ function fetchData(url) {
 // GENERATE HTML FUNCTION
 //----------------------------------------------
 
+/*
+Generates 12 staff profile cards pulled in from
+  the api using the fetchData function. Each array
+  and it's objects are appended to gallery DIV
+  with the below HTML formatting. They are also
+  pushed to an empty array called profiles which
+  is also used in the modal function.
+*/
+
 function generateHTML(data) {
 	data.map(profile => {
 		const div = document.createElement('div');
@@ -52,9 +61,10 @@ function generateHTML(data) {
 // EVENT LISTENER & MODAL FUNCTION
 //----------------------------------------------
 
-/* CLICK HANDLER FUNCTION. TARGETS DIV ELEMENTS WITH THE CLASS OF 'CARD'. IT THEN ITERATES OVER THEM
-AND PLACES CLICK EVENT LISTENERS ON THEM & TRACKS THEIR INDEX VALUE. IT THEN CALLS THE generateModal
-FUNCTION ON CLICK AND PASSES IN TWO ARGUMENTS, DATA AND i.
+
+/* Click handler function. Targets div elements with the class of 'card'. It iterates over
+    them and places click event listeners on them and tracks their index value. It then calls the
+    generateModal function on click and passes in data and i as arguments.
 */
 
 function clickHandler(data) {
@@ -66,6 +76,16 @@ function clickHandler(data) {
   });
 }
 
+
+
+/* Generate Modal function. Takes data and index value argments passed in by the
+    clickHandler function. It appends the contant to the gallery div using the html
+    formatting below. The temlate literals are displaying a modal card, pulling in
+    data & index value from the profiles array on click. I used += on the modal.innerHTML
+    so that it wouldn't remove generateHTML data. I also used the .substring method to
+    shorten the dob value returned by the api down to the first 10 values. The event
+    listener that closes the modal window is included in this function.
+*/
 
 function generateModal(data, i) {
       const modal = document.createElement('div');
@@ -88,7 +108,7 @@ function generateModal(data, i) {
       </div>
       `;
 
-      //CLOSE MODAL WINDOW HERE...
+      //Closes modal window on click
       let button = document.querySelector('#modal-close-btn');
       button.addEventListener('click', (e) => {
         modal.remove();
@@ -99,6 +119,11 @@ function generateModal(data, i) {
 //----------------------------------------------
 // FETCH DATA FUNCTION CALL
 //----------------------------------------------
+
+/* Call the fetchData function. Passed in the url from the api. I then use
+  .then to pass in the data & results on my generateHTML function. I also pass
+  in the clickHandler function.
+*/
 
 fetchData(staffUrl)
   .then(data => generateHTML(data.results))
