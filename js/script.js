@@ -29,7 +29,7 @@ function generateHTML(data) {
 	data.map(profile => {
 		const div = document.createElement('div');
 		galleryList.appendChild(div);
-		div.innerHTML =
+		div.innerHTML +=
 		`<div class="card">
 				<div class="card-img-container">
 						<img class="card-img" src=${profile.picture.medium} alt="profile picture">
@@ -68,9 +68,9 @@ function clickHandler(data) {
 
 
 function generateModal(data, i) {
-      const body = document.querySelector('body');
-      body.classList.add("modal-container");
-      body.innerHTML +=
+      const modal = document.createElement('div');
+      galleryList.appendChild(modal);
+      modal.innerHTML +=
       `<div class="modal-container">
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -88,8 +88,11 @@ function generateModal(data, i) {
       </div>
       `;
 
-      //INSERT FUNCTION TO CLOSE MODAL WINDOW HERE...
-
+      //CLOSE MODAL WINDOW HERE...
+      let button = document.querySelector('#modal-close-btn');
+      button.addEventListener('click', (e) => {
+        modal.remove();
+      })
   }
 
 
