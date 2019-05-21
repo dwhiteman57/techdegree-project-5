@@ -82,7 +82,7 @@ function generateModal(data, i) {
                 <hr>
                 <p class="modal-text">${profiles[i].phone}</p>
                 <p class="modal-text cap">${profiles[i].location.street} ${profiles[i].location.city}, ${profiles[i].location.state} ${profiles[i].location.postcode}</p>
-                <p class="modal-text">Birthday: ${profiles[i].dob.date}</p>
+                <p class="modal-text">Birthday: ${profiles[i].dob.date.substring(0,10)}</p>
             </div>
         </div>
       </div>
