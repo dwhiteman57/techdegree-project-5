@@ -108,7 +108,9 @@ function generateModal(data, i) {
       </div>
       `;
 
-      //Closes modal window on click
+      /* Closes modal window on click. Targets the button, adds an event listener
+          to the button and removes the modal div on click using .remove().
+      */
       let button = document.querySelector('#modal-close-btn');
       button.addEventListener('click', (e) => {
         modal.remove();
